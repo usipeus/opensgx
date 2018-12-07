@@ -4960,7 +4960,7 @@ void helper_sgx_ehandle(CPUX86State *env)
     //    tmp_ssa->rflags.tf = 0;
     }
 #if DEBUG
-    sgx_msg(info, "Ssaved the state");
+    sgx_msg(info, "Saved the state in helper_sgx_ehandle");
 #endif
     /* (* Use a special version of XSAVE that takes a list of physical addresses of logically sequential pages to
     perform the save. TMP_MODE64 specifies whether to use the 32-bit or 64-bit layout.

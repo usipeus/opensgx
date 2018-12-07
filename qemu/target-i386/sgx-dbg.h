@@ -7,7 +7,7 @@
 //     sgx_dbg(unlink, "failed:%d", error)
 //
 
-#define DEBUG (0)
+#define DEBUG (1)
 #define TEST  (1)
 
 #ifdef SGX_KERNEL
@@ -26,9 +26,9 @@
  enum { sgx_dbg_ttrace   = 0 }; // verbose trace msg
  enum { sgx_dbg_mtrace   = 0 }; // memory trace msg
  enum { sgx_dbg_trace    = 0 }; // light trace msg
- enum { sgx_dbg_info     = 0 }; // info
+ enum { sgx_dbg_info     = 1 }; // info
  enum { sgx_dbg_warn     = 1 }; // warning
- enum { sgx_dbg_dbg      = 0 }; // dbg msg
+ enum { sgx_dbg_dbg      = 1 }; // dbg msg
  enum { sgx_dbg_err      = 1 }; // err msg
  enum { sgx_dbg_rsa      = 0 }; // rsa-related msg
  enum { sgx_dbg_test     = 0 }; // unit test msg
