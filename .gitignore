@@ -16,6 +16,8 @@ test/passMan/app
 test/passMan/libenclave.so
 test/passMan/pmTest
 
+sign.key
+
 # qemu
 qemu/roms/seabios/config.mak
 qemu/roms/vgabios/config.mak
@@ -185,3 +187,33 @@ libsgx/musl-libc/tools/ld.musl-clang
 libsgx/musl-libc/lib/musl-gcc.specs
 libsgx/musl-libc/src/internal/version.h
 
+# .sgx and .conf files
+user/demo/*.conf
+user/demo/*.sgx
+
+# Test binaries
+user/test/exception-div-zero
+user/test/fault-enclave-access
+user/test/simple
+user/test/simple-arg
+user/test/simple-client
+user/test/simple-demo
+user/test/simple-epcm-rwx
+user/test/simple-func
+user/test/simple-get-sigstruct
+user/test/simple-getkey
+user/test/simple-global
+user/test/simple-hello
+user/test/simple-indirect
+user/test/simple-intra-attest-challenger
+user/test/simple-pipe
+user/test/simple-printf
+user/test/simple-remote-attest-challenger
+user/test/simple-remote-attest-target
+user/test/simple-server
+user/test/simple-sgxlib
+user/test/simple-stack
+user/test/simple-vul
+user/test/stub
+user/test/stub-malloc
+user/test/stub-realloc
