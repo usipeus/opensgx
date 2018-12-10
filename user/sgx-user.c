@@ -83,7 +83,7 @@ void sgx_resume(tcs_t *tcs, void (*aep)()) {
 
 void exception_handler(void)
 {
-    sgx_msg(trace, "Asy_Call\n");
+    sgx_msg(trace, "User-level exception handler\n");
     uint64_t aep = 0x00;
     uint64_t rdx = 0x00;
 
