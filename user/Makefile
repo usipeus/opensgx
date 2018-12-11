@@ -30,10 +30,10 @@ LDLIBS = -L. -lpolarssl -lelf
 CFLAGS := $(BASE_CFLAGS) -fno-stack-protector -fvisibility=hidden
 
 HDRS := $(wildcard include/sgx*.h)
-BINS := $(patsubst %.c,%,$(wildcard test/*.c)) \
-        $(patsubst %.c,%,$(wildcard test/openssl/*.c)) \
+BINS := $(patsubst %.c,%,$(wildcard test/*.c)) #\
+        $(patsubst %.c,%,$(wildcard non_enclave/*.c)) \
         $(patsubst %.c,%,$(wildcard test/tor/sgx-*.c)) \
-        $(patsubst %.c,%,$(wildcard non_enclave/*.c))
+        $(patsubst %.c,%,$(wildcard test/openssl/*.c))
 ALL  := sgx-tool sgx-runtime $(BINS) $(POLARSSL_LIB) sgx-host
 
 all: $(ALL)
@@ -65,20 +65,20 @@ test/%.o: test/%.c
 demo/%.o: demo/%.c
 	$(CC) -c $(SGX_CFLAGS) -o $@ $<
 
-test/openssl/%: test/openssl/%.o $(OPENSSL_LIBS)
-	$(CC) $(SGX_LDFLAGS) $< -o $@ $(OPENSSL_LIBS)
-
-test/tor/%: test/tor/%.o $(OPENSSL_LIBS)
-	$(CC) $(SGX_LDFLAGS) $< -o $@ $(OPENSSL_LIBS)
-
+#test/openssl/%: test/openssl/%.o $(OPENSSL_LIBS)
+#	$(CC) $(SGX_LDFLAGS) $< -o $@ $(OPENSSL_LIBS)
+#
+#test/tor/%: test/tor/%.o $(OPENSSL_LIBS)
+#	$(CC) $(SGX_LDFLAGS) $< -o $@ $(OPENSSL_LIBS)
+#
 test/%: test/%.o $(SGX_LIBS)
 	$(CC) $(SGX_LDFLAGS) $< -o $@ $(SGX_LIBS)
 
 demo/%.sgx: demo/%.o $(SGX_LIBS)
 	$(CC) $(SGX_LDFLAGS) $< -o $@ $(SGX_LIBS)
 
-non_enclave/%: non_enclave/%.o nonEncLib.o
-	$(CC) $(CFLAGS) $^ -o $@
+#non_enclave/%: non_enclave/%.o nonEncLib.o
+#	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 	rm -f polarssl/*.o lib/*.o *.o $(ALL) test/*.o sgx-runtime.o demo/*.conf demo/*.sgx
