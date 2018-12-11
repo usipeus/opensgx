@@ -154,7 +154,7 @@ typedef enum {
     ENCLS_OSGX_EPCM_CLR  = 0x12,
     ENCLS_OSGX_CPUSVN    = 0x13,
     ENCLS_OSGX_STAT      = 0x14,
-    ENCLS_OSGX_SET_STACK = 0x15,
+    ENCLS_OSGX_SET_STACK = 0x15
 } encls_cmd_t;
 
 typedef enum {
@@ -166,6 +166,9 @@ typedef enum {
    ENCLU_EACCEPT      = 0x05,
    ENCLU_EMODPE       = 0x06,
    ENCLU_EACCEPTCOPY  = 0x07,
+
+    // security related
+    ENCLU_ESEC_AEX_STATS = 0x10
 } enclu_cmd_t;
 
 typedef enum {
@@ -181,7 +184,7 @@ typedef enum {
    PROVISION_KEY      = 0x01,          //!< Provisioning Key
    PROVISION_SEAL_KEY = 0x02,          //!< Provisioning Seal Key
    REPORT_KEY         = 0x03,          //!< Report Key
-   SEAL_KEY           = 0x04,          //!< Report seal key
+   SEAL_KEY           = 0x04           //!< Report seal key
 } keyname_type_t;
 
 typedef struct {
@@ -394,3 +397,7 @@ typedef struct {
     uint64_t            mrEnclaveUpdateCounter; 
     secs_eid_reserved_t eid_reserved;
 } secs_t;
+
+typedef struct {
+    uint64_t count;
+} sgx_sec_aex_stats_t;

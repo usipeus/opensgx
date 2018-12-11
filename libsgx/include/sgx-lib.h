@@ -67,6 +67,17 @@
                   "c"((uint64_t)output));       \
 }
 
+#define sgx_sec_aex_stats(ptr) {                \
+    asm volatile("movl %0, %%eax\n\t"           \
+                 "movq %2, %%rcx\n\t"           \
+                 ".byte 0x0F\n\t"               \
+                 ".byte 0x01\n\t"               \
+                 ".byte 0xd7\n\t"               \
+                 :                              \
+                 :"a"((uint32_t)ENCLU_ESEC_AEX_STATS), \
+                  "b"((uint64_t)ptr)); \
+}
+
 extern int sgx_enclave_read(void *buf, int len);
 extern int sgx_enclave_write(void *buf, int len);
 
