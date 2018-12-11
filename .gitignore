@@ -217,3 +217,5 @@ user/test/simple-vul
 user/test/stub
 user/test/stub-malloc
 user/test/stub-realloc
+
+.vscode/
