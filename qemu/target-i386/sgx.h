@@ -527,6 +527,6 @@ typedef struct { //128 bytes...
     uint64_t linaddr;
     secinfo_t secinfo; //64 bytes
     uint8_t padding[48]; // padding bytes to make it 128 byte ...
-}mac_header_t;
+} mac_header_t;
 
 #pragma pack(pop)
