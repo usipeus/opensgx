@@ -1269,6 +1269,19 @@ void sgx_egetkey_common_check(CPUX86State *env, uint64_t *reg,
 
 // ENCLU instruction implemenration.
 
+// SEC_AEX_STATS instruction
+static
+void sgx_esec_aex_stats(CPUX86State *env)
+{
+    // returns AEX statistics as a pointer in aex
+    sgx_sec_aex_stats_t *stats = malloc(sizeof(sgx_sec_aex_stats_t));
+    stats->count = env->cregs.CR_EXCEPTION_COUNT;
+
+    asm volatile ("movq %0, %%rax\n\t"
+        :"=a"((uint64_t)stats)
+    );
+}
+
 // EACCEPT instruction.
 static
 void sgx_eaccept(CPUX86State *env)
@@ -1558,6 +1571,7 @@ void sgx_eenter(CPUX86State *env)
 
     sgx_dbg(eenter, "aep: %p, tcs: %p", aep, tcs);
     sgx_dbg(eenter, "index_tcs: %d, mode64: %d", index_tcs, tmp_mode64);
+    sgx_dbg(info, "Exception count: %lu", env->cregs.CR_EXCEPTION_COUNT);
 
     // Also Need to check DS[S] == 1 and DS[11] and DS[10]
     if ((!tmp_mode64) && ((&env->segs[R_DS] != NULL) ||
@@ -2657,6 +2671,7 @@ void sgx_eresume(CPUX86State *env)
     //uint64_t tmp_xsize;
 
     sgx_dbg(trace, "Current ESP: %lx   EBP: %lx", env->regs[R_ESP], env->regs[R_EBP]);
+    sgx_dbg(info, "Exception count: %lu", env->cregs.CR_EXCEPTION_COUNT);
     // Store the inputs
     aep = (uint64_t *)env->regs[R_ECX];
     tcs = (tcs_t *)env->regs[R_EBX];
@@ -3100,6 +3115,9 @@ void helper_sgx_enclu(CPUX86State *env, uint64_t next_eip)
 //	    sgx_ecalmac(env);
 //	    break;
 
+        case ENCLU_ESEC_AEX_STATS:
+            sgx_esec_aex_stats(env);
+            break;
 
         default:
             sgx_err("not implemented yet");

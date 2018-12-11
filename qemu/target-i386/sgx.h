@@ -128,6 +128,9 @@ typedef enum {
     ENCLU_EACCEPT      = 0x05,
     ENCLU_EMODPE       = 0x06,
     ENCLU_EACCEPTCOPY  = 0x07,
+
+    // security related
+    ENCLU_ESEC_AEX_STATS = 0x10,
 } enclu_cmd_t;
 
 // from 5.1.3
@@ -522,5 +525,9 @@ typedef struct { //128 bytes...
     secinfo_t secinfo; //64 bytes
     uint8_t padding[48]; // padding bytes to make it 128 byte ...
 }mac_header_t;
+
+typedef struct {
+    uint64_t count;
+} sgx_sec_aex_stats_t;
 
 #pragma pack(pop)

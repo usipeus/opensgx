@@ -20,6 +20,7 @@
 
 #include "cpu.h"
 #include "qemu/log.h"
+#include "qemu/timer.h"
 #include "exec/helper-proto.h"
 #include "exec/cpu_ldst.h"
 
@@ -1251,17 +1252,24 @@ void x86_cpu_do_interrupt(CPUState *cs)
     X86CPU *cpu = X86_CPU(cs);
     CPUX86State *env = &cpu->env;
 
+    /* if enclave, notify user that an exception occurred somehow */
+    if (env->cregs.CR_ENCLAVE_MODE) {
+        env->cregs.CR_EXCEPTION_COUNT++;
+    }
+
 #if defined(CONFIG_USER_ONLY)
     /* if user mode only, we simulate a fake exception
        which will be handled outside the cpu execution
        loop */
     
+    /*
     printf("Point of interrupt handling, set next_eip accordingly\n");
     if (env->cregs.CR_ENCLAVE_MODE) {
         env->exception_next_eip = env->cregs.CR_AEP;
         helper_sgx_ehandle(env);
     }
-    
+    */
+
     do_interrupt_user(env, cs->exception_index,
                       env->exception_is_int,
                       env->error_code,

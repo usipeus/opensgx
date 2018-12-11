@@ -791,6 +791,8 @@ typedef struct CREGS {
     uint64_t CR_AEP;                    //64 LP -- Added
     uint64_t CR_ESP;
     uint64_t CR_EBP;
+    uint64_t CR_EXCEPTION_COUNT;
+    uint64_t CR_EXCEPTION_RAVG_US;         // simple running avg per 1 us
 
     /* not in the list of Internal CREGs but used in manual */
     uint64_t CR_TCS_PA;
