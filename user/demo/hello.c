@@ -26,6 +26,12 @@ void enclave_main()
 {
     char *hello = "hello sgx!\n";
     puts(hello);
+
+    char s[81];
+    s[80] = '\0';
+    fgets(s, 80, stdin);
+    puts(s);
+
     sgx_exit(NULL);
 }
 
