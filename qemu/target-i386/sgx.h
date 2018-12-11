@@ -517,6 +517,9 @@ typedef struct {
     stat_t stat;
 } qeid_t;
 
+typedef struct {
+    uint64_t count;
+} sgx_sec_aex_stats_t;
 
 /* Not defined in the SGX spec sec2.6 but used in ewb & eldb instruction */
 typedef struct { //128 bytes...
@@ -525,9 +528,5 @@ typedef struct { //128 bytes...
     secinfo_t secinfo; //64 bytes
     uint8_t padding[48]; // padding bytes to make it 128 byte ...
 }mac_header_t;
-
-typedef struct {
-    uint64_t count;
-} sgx_sec_aex_stats_t;
 
 #pragma pack(pop)

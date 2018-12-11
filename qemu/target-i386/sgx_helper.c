@@ -1273,11 +1273,11 @@ void sgx_egetkey_common_check(CPUX86State *env, uint64_t *reg,
 static
 void sgx_esec_aex_stats(CPUX86State *env)
 {
-    // returns AEX statistics as a pointer in aex
+    // returns AEX statistics as a pointer in rcx
     sgx_sec_aex_stats_t *stats = malloc(sizeof(sgx_sec_aex_stats_t));
     stats->count = env->cregs.CR_EXCEPTION_COUNT;
 
-    asm volatile ("movq %0, %%rax\n\t"
+    asm volatile ("movq %0, %%rcx\n\t"
         :"=a"((uint64_t)stats)
     );
 }
