@@ -36,7 +36,7 @@ extern void sgx_resume(tcs_t *tcs, void (*aep)());
 extern int sgx_host_read(void *buf, int len);
 extern int sgx_host_write(void *buf, int len);
 
-extern void sgx_sec_aex_stats(tcs_t *tcs, void(*aep)());
+//extern void sgx_sec_aex_stats(tcs_t *tcs, void(*aep)());
 
 extern void collecting_enclu_stat(void);
 

@@ -81,13 +81,12 @@ void sgx_resume(tcs_t *tcs, void (*aep)()) {
     enclu(ENCLU_ERESUME, (uint64_t)tcs, (uint64_t)aep, 0, NULL);
 }
 
-void sgx_sec_aex_stats(tcs_t *tcs, void (*aep)())
-{
-    // RBX: TCS (In, EA)
-    // RCX: AEP (In, EA)
-    out_regs_t out;
-    enclu(ENCLU_ESEC_AEX_STATS, (uint64_t)tcs, (uint64_t)aep, 0, &out);
-}
+// void sgx_sec_aex_stats(tcs_t *tcs, void (*aep)())
+// {
+//     // RBX: TCS (In, EA)
+//     // RCX: AEP (In, EA)
+//     enclu(ENCLU_ESEC_AEX_STATS, (uint64_t)tcs, (uint64_t)aep, 0, NULL);
+// }
 
 void exception_handler(void)
 {
