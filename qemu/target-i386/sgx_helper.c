@@ -1273,13 +1273,12 @@ void sgx_egetkey_common_check(CPUX86State *env, uint64_t *reg,
 static
 void sgx_esec_aex_stats(CPUX86State *env)
 {
-    // returns AEX statistics as a pointer in rcx
-    sgx_sec_aex_stats_t *stats = malloc(sizeof(sgx_sec_aex_stats_t));
-    stats->count = env->cregs.CR_EXCEPTION_COUNT;
-
-    asm volatile ("movq %0, %%rcx\n\t"
-        :"=a"((uint64_t)stats)
-    );
+    // returns AEX statistics
+    uint64_t *stats = (uint64_t *)env->regs[R_ECX];
+    sgx_dbg(info, "Instruction memory address: %lx", stats);
+    ((sgx_sec_aex_stats_t *)stats)->count = env->cregs.CR_EXCEPTION_COUNT;
+Done:
+    env->eflags &= ~(CC_C | CC_P | CC_A | CC_O | CC_S);
 }
 
 // EACCEPT instruction.
@@ -3060,6 +3059,7 @@ const char *enclu_cmd_to_str(long cmd) {
     case ENCLU_EMODPE:       return "EMODPE";
     case ENCLU_EREPORT:     return "EREPORT";
     case ENCLU_ERESUME:     return "ERESUME";
+    case ENCLU_ESEC_AEX_STATS return "ESEC_AEX_STATS";
     }
     return "UNKONWN";
 }

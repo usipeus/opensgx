@@ -69,7 +69,7 @@
 
 #define sgx_sec_aex_stats(ptr) {                \
     asm volatile("movl %0, %%eax\n\t"           \
-                 "movq %2, %%rcx\n\t"           \
+                 "movq %1, %%rcx\n\t"           \
                  ".byte 0x0F\n\t"               \
                  ".byte 0x01\n\t"               \
                  ".byte 0xd7\n\t"               \
