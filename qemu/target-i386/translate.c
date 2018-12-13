@@ -8160,9 +8160,9 @@ static inline void gen_intermediate_code_internal(X86CPU *cpu,
         }
         if (singlestep) {
             //Put debug message in here like below
-            fprintf(stderr, "TB :  %lX ~ %lX\n", pc_start, pc_ptr);
-            fprintf(stderr, "RSP:  %lX\n", env->regs[R_ESP]);
-            fprintf(stderr, "\n");
+            //fprintf(stderr, "TB :  %lX ~ %lX\n", pc_start, pc_ptr);
+            //fprintf(stderr, "RSP:  %lX\n", env->regs[R_ESP]);
+            //fprintf(stderr, "\n");
             gen_jmp_im(pc_ptr - dc->cs_base);
             gen_eob(dc);
             break;

@@ -1276,9 +1276,20 @@ void sgx_esec_aex_stats(CPUX86State *env)
     // returns AEX statistics
     uint64_t *stats = (uint64_t *)env->regs[R_ECX];
     sgx_dbg(info, "Instruction memory address: %lx", stats);
-    ((sgx_sec_aex_stats_t *)stats)->count = env->cregs.CR_EXCEPTION_COUNT;
-Done:
+
+    if (stats == NULL) {
+        ((sgx_sec_aex_stats_t *)stats)->count = env->cregs.CR_EXCEPTION_COUNT;
+        env->eflags |= CC_Z;
+        goto _EXIT;
+    }
+
+    // Clear EAX and ZF to indicate successful completion
+    env->eflags &= ~CC_Z;
+    env->regs[R_EAX] = 0;
+_EXIT:
     env->eflags &= ~(CC_C | CC_P | CC_A | CC_O | CC_S);
+    //env->cregs.CR_CURR_EIP = env->cregs.CR_NEXT_EIP;
+    //env->cregs.CR_ENC_INSN_RET = true;
 }
 
 // EACCEPT instruction.
@@ -3059,9 +3070,9 @@ const char *enclu_cmd_to_str(long cmd) {
     case ENCLU_EMODPE:       return "EMODPE";
     case ENCLU_EREPORT:     return "EREPORT";
     case ENCLU_ERESUME:     return "ERESUME";
-    case ENCLU_ESEC_AEX_STATS return "ESEC_AEX_STATS";
+    case ENCLU_ESEC_AEX_STATS: return "ESEC_AEX_STATS";
     }
-    return "UNKONWN";
+    return "UNKNOWN";
 }
 
 void helper_sgx_enclu(CPUX86State *env, uint64_t next_eip)

@@ -21,16 +21,29 @@
 
 #include <sgx-lib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void enclave_main()
 {
     char *hello = "hello sgx!\n";
     puts(hello);
 
+    sgx_sec_aex_stats_t *p = malloc(sizeof(sgx_sec_aex_stats_t));
+    printf("Struct to place aex stats into: %lx\n", p);
+
     char s[81];
     s[80] = '\0';
     fgets(s, 80, stdin);
     puts(s);
+
+    sgx_sec_aex_stats(p);
+    printf("Number of exceptions from enclave: %lu\n", p->count);
+
+    s[80] = '\0';
+    fgets(s, 80, stdin);
+    puts(s);
+    sgx_sec_aex_stats(p);
+    printf("Number of exceptions from enclave: %lu\n", p->count);
 
     sgx_exit(NULL);
 }

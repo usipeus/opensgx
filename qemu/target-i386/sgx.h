@@ -130,7 +130,7 @@ typedef enum {
     ENCLU_EACCEPTCOPY  = 0x07,
 
     // security related
-    ENCLU_ESEC_AEX_STATS = 0x10,
+    ENCLU_ESEC_AEX_STATS = 0x10
 } enclu_cmd_t;
 
 // from 5.1.3
